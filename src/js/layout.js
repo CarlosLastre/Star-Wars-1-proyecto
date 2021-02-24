@@ -5,6 +5,8 @@ import ScrollToTop from "./component/scrollToTop";
 import { Home } from "./views/home";
 import { Demo } from "./views/demo";
 import { Single } from "./views/single";
+import { Personajesvista } from "./views/detallePersonajes";
+import { Planetassvista } from "./views/detallePlanetas";
 import injectContext from "./store/appContext";
 
 import { Navbar } from "./component/navbar";
@@ -17,7 +19,9 @@ const Layout = () => {
 	const basename = process.env.BASENAME || "";
 
 	return (
-		<div className="d-flex flex-column">
+		<div
+			className="container
+     bg-dark">
 			<BrowserRouter basename={basename}>
 				<ScrollToTop>
 					<Navbar />
@@ -30,6 +34,15 @@ const Layout = () => {
 						</Route>
 						<Route exact path="/single/:theid">
 							<Single />
+						</Route>
+						<Route exact path="/single/:planetas/:theid">
+							<Single />
+						</Route>
+						<Route exact path="/detallePersonajes/:thied">
+							<Personajesvista />
+						</Route>
+						<Route exact path="/detallePlanetas/:thied">
+							<Planetassvista />
 						</Route>
 						<Route>
 							<h1>Not found!</h1>
