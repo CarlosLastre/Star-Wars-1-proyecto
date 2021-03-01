@@ -1,45 +1,93 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
-import { Planetas } from "/workspace/react-hello-webapp/src/js/component/planetas.js";
-import rigoImage from "/workspace/react-hello-webapp/src/img/img2.jpg";
+import { Planetas } from "../component/planetas.js";
 
 export const Planetassvista = () => {
-	var parametros = useParams();
-	console.log(parametros);
+	var { theid } = useParams();
+	console.log(theid);
+	const { store, actions } = useContext(Context);
+	useEffect(() => {
+		actions.loadPeople();
+	}, []);
 
 	return (
-		<div className="container">
-			<div className="jumbotron">
-				<h1 className="display-4">Personajes Start Wars detalles</h1>
-				<div className="row">
-					<img
-						src="https://i3.wp.com/68.media.tumblr.com/e4bb6d4024abb506330572eef33a0fd4/tumblr_ojnf8w7UTI1t7b5qro3_1280.gif"
-						alt="Trulli"
-						width="400"
-					/>
-				</div>
-				<div className="col-8 float-right">
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-						laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-						voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-						non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-					</p>
-				</div>
+		<div className="container-md bg-dark">
+			{store.planets.map((planets, i) => {
+				if (i == theid) {
+					return (
+						<div className="jumbotron bg-dark">
+							<h1 className="text-warning">Nombre de Planeta:</h1>
+							<br />
+							<h1 className="display-4 text-warning">{planets.name}</h1>
+							<br />
+							<div className="row">
+								<div className="col-7">
+									<img
+										className="rounded float-right"
+										src="https://i.pinimg.com/originals/4c/5d/91/4c5d91eac9a21738d10d68ae30f9928d.jpg"
+										alt="Circle image"
+									/>
+								</div>
 
-				<hr className="my-4" />
-				<img
-					src="https://e00-elmundo.uecdn.es/assets/multimedia/imagenes/2015/12/20/14506409651930.gif"
-					width="800"
-				/>
-				<div>
-					<Link to="/">
-						<img className="text-right" src={rigoImage} height="80px" />
-					</Link>
-				</div>
-			</div>
+								<div className="col-5 text-warning ">
+									<h2 className="font-size: 30px">
+										Los planetas de Star Wars pueden parecen un tema secundario, pero son
+										verdaderamente importantes. Tanto para justificar la personalidad de un
+										personaje y el origen que podría haber tenido como para justificar la trama
+										narrativa de una película o de una situación o un contexto sociopolítico
+										concretos que provocarán un efecto dominó en la historia y nos llevarán hacia el
+										lugar que la misma quiera llevarnos. Vamos, que no es tema baladí. Sin embargo,
+										no todos los planetas que existen en Star Wars y son importantes han visto la
+										luz en el cine.
+									</h2>
+								</div>
+								<table className="table table-striped text-warning">
+									<thead>
+										<tr>
+											<th scope="col">
+												<h3 className="font-size: 30px">Planeta</h3>
+											</th>
+											<th scope="col">
+												<h3 className="font-size: 30px">Rotacion</h3>
+											</th>
+											<th scope="col">
+												<h3 className="font-size: 30px">Orbita</h3>
+											</th>
+											<th scope="col">
+												<h3 className="font-size: 30px">Diametro</h3>
+											</th>
+											<th scope="col">
+												<h3 className="font-size: 30px">Clima</h3>
+											</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<th scope="row">
+												<h3 className="font-size: 30px">{planets.name}</h3>
+											</th>
+											<td>
+												<h3 className="font-size: 30px">{planets.rotation_period}</h3>
+											</td>
+											<td>
+												<h3 className="font-size: 30px">{planets.orbital_period}</h3>
+											</td>
+											<td>
+												<h3 className="font-size: 30px">{planets.diameter}</h3>
+											</td>
+											<td>
+												<h3 className="font-size: 30px">{planets.climate}</h3>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					);
+				}
+			})}
+			;
 		</div>
 	);
 };

@@ -27,6 +27,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 						count = 1;
 					}
 				});
+				if (count == 0) {
+					setStore({
+						favorites: [
+							...store.favorites,
+							{
+								name: name,
+								type: type
+							}
+						]
+					});
+					console.log(store.favorites);
+				}
 			}
 		}
 	};
